@@ -8,7 +8,7 @@ const MOCK_POSTS = [
       type: 'short_post',
       content: "今天我建好了我的网站。",
       tags: ['test'],
-      publish_date: '2025-12-25T023:56:00Z',
+      publish_date: '2025-12-25T23:56:00Z',
       media: []
     }
     
