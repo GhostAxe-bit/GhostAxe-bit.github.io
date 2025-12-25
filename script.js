@@ -2,16 +2,16 @@
 
 const MOCK_POSTS = [
     // Add your posts here.
-    /*
+    
     {
-      id: '1',
+      id: '0',
       type: 'short_post',
-      content: "Example content here...",
-      tags: ['example', 'daily'],
-      publish_date: '2023-10-27T08:30:00Z',
+      content: "今天我建好了我的网站。",
+      tags: ['test'],
+      publish_date: '2025-12-25T023:56:00Z',
       media: []
     }
-    */
+    
 ];
 
 // --- Icons (SVG Strings) ---
