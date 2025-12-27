@@ -1,3 +1,4 @@
+console.log('POST.JS VERSION: 2025-12-28-001');
 window.POSTS = [
   {
     id: '0',
