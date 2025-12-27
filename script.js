@@ -1,6 +1,7 @@
 // --- Constants & Data ---
 
-const MOCK_POSTS = [window.POSTS];
+const MOCK_POSTS = window.POSTS || [];
+
 
 // --- Icons (SVG Strings) ---
 const ICONS = {
