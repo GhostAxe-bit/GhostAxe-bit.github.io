@@ -1,22 +1,6 @@
 // --- Constants & Data ---
 
-const MOCK_POSTS = [
-    // Add your posts here.
-    
-    {
-      id: '0',
-      type: 'short_post',
-      content: "今天我建好了我的网站。",
-      tags: ['test'],
-      publish_date: '2025-12-25T23:56:00Z',
-      media: [{
-      type: 'image',
-      url: '/assets/images/first.png',
-      caption: '新的开始'
-    }]
-    }
-    
-];
+const MOCK_POSTS = [window.POSTS];
 
 // --- Icons (SVG Strings) ---
 const ICONS = {
