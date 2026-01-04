@@ -304,35 +304,20 @@ const attachHomeListeners = () => {
     // Tag buttons
     document.querySelectorAll('.js-tag-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const tag = btn.dataset.tag;
-            state.activeTag = tag === "" ? null : tag;
-            // Clear tag when clicking ALL, but preserve search query if any? 
-            // The React logic was: clear tag, but search query is separate state.
-            // React: <Link to="/" onClick={() => setActiveTag(null)}>
-            // React: Button onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+            e.preventDefault();
+            const clickedTag = btn.dataset.tag; // string (empty for ALL, or specific tag)
             
-            // If clicking the active tag again, clear it (toggle)
-            // Logic handled by btn.dataset.tag logic above combined with checking state
-            
-            // If data-tag is empty string, it's 'ALL'
-            if (tag && state.activeTag === tag) {
-                // It was already active, now we toggle off?
-                // Wait, if I clicked 'tagA' and it was 'tagA', I want to turn it off?
-                // The renderer sets dataset.tag to the specific tag.
-                // The logic: if activeTag == tag, set to null.
-                // BUT I just set state.activeTag = tag.
-                // Let's refine the click handler.
-            }
-            // Better logic:
-            // The render loop sets the dataset.tag properly.
-            // If I click 'ALL', tag is empty string.
-            // If I click 'Design', tag is 'Design'.
-            
-            const clickedTag = btn.dataset.tag || null;
-            if (state.activeTag === clickedTag && clickedTag !== null) {
-               state.activeTag = null; // Toggle off
+            if (clickedTag === "") {
+                // Clicked ALL
+                state.activeTag = null;
             } else {
-               state.activeTag = clickedTag;
+                // Clicked a specific tag
+                // Toggle logic: if already active, clear it. If not, set it.
+                if (state.activeTag === clickedTag) {
+                    state.activeTag = null;
+                } else {
+                    state.activeTag = clickedTag;
+                }
             }
             
             renderApp();
@@ -371,4 +356,3 @@ const handleHashChange = () => {
 
 window.addEventListener('hashchange', handleHashChange);
 window.addEventListener('DOMContentLoaded', handleHashChange); // Handle initial load
-
