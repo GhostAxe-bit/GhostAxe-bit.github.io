@@ -83,7 +83,7 @@ const renderSidebar = () => {
                 id="search-input"
                 value="${state.searchQuery}"
                 placeholder="SEARCH..."
-                class="w-full bg-transparent border-b border-swiss-black/20 py-2 text-xs font-mono uppercase tracking-widest text-swiss-black placeholder:text-swiss-gray/50 focus:outline-none focus:border-swiss-orange transition-colors"
+                class="w-full bg-transparent border-b border-swiss-black/20 py-2 text-xs font-mono tracking-widest text-swiss-black placeholder:text-swiss-gray/50 focus:outline-none focus:border-swiss-orange transition-colors"
             />
         </div>
 
@@ -180,11 +180,9 @@ const renderPostCard = (post) => {
     `;
 };
 
-const renderHome = () => {
-    const posts = getFilteredPosts();
-    const sidebarHtml = renderSidebar();
-
-    const timelineHeader = `
+// Helper: Generates only the header part of the timeline
+const renderTimelineHeader = () => {
+    return `
         <div class="mb-8 flex items-baseline gap-4 animate-swiss-reveal">
             <h2 class="text-sm font-bold uppercase tracking-widest border-b border-swiss-black pb-2 flex-grow">Timeline</h2>
             ${(state.activeTag || state.searchQuery) ? `
@@ -196,18 +194,33 @@ const renderHome = () => {
             ` : ''}
         </div>
     `;
+};
 
+// Helper: Generates only the posts list part
+const renderPostsFeed = () => {
+    const posts = getFilteredPosts();
     const postsHtml = posts.length > 0 
         ? posts.map(renderPostCard).join('')
         : `<div class="py-20 text-center text-swiss-gray/40 font-mono animate-swiss-reveal select-none">▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒</div>`;
 
+    return `
+        ${postsHtml}
+        <div class="py-12 border-t border-swiss-black/10 text-center">
+            <span class="text-swiss-black text-2xl">•</span>
+        </div>
+    `;
+};
+
+const renderHome = () => {
+    const sidebarHtml = renderSidebar();
+    
+    // We add IDs to specific containers so we can update them individually during search
     const mainHtml = `
-        ${timelineHeader}
-        <div class="flex flex-col">
-            ${postsHtml}
-            <div class="py-12 border-t border-swiss-black/10 text-center">
-                <span class="text-swiss-black text-2xl">•</span>
-            </div>
+        <div id="timeline-header">
+            ${renderTimelineHeader()}
+        </div>
+        <div id="posts-container" class="flex flex-col">
+            ${renderPostsFeed()}
         </div>
     `;
 
@@ -292,12 +305,20 @@ const attachHomeListeners = () => {
     const input = document.getElementById('search-input');
     if (input) {
         input.focus();
-        // Move cursor to end
+        // Restore cursor position if needed (though with the new non-destructive update it's less critical, safe to keep)
         input.setSelectionRange(input.value.length, input.value.length);
         
         input.addEventListener('input', (e) => {
             state.searchQuery = e.target.value;
-            renderApp(); // Re-render to show filtered results
+            
+            // CRITICAL FIX: Do NOT call renderApp() here.
+            // renderApp() destroys the sidebar and the input element, breaking IME (Chinese) and doubling characters.
+            // Instead, we only update the specific results containers.
+            const headerEl = document.getElementById('timeline-header');
+            const postsEl = document.getElementById('posts-container');
+            
+            if (headerEl) headerEl.innerHTML = renderTimelineHeader();
+            if (postsEl) postsEl.innerHTML = renderPostsFeed();
         });
     }
 
@@ -324,13 +345,11 @@ const attachHomeListeners = () => {
         });
     });
 
-    // Reset Tag when clicking Logo (handled via hash change usually, but explicit click handler in React)
+    // Reset Tag when clicking Logo
     const homeLink = document.querySelector('.js-home-link');
     if (homeLink) {
         homeLink.addEventListener('click', () => {
             state.activeTag = null;
-            // let hash change handle the route, but state update needs to happen
-            // renderApp will be called by hashchange if hash changes, or we force it if already on hash
             if (window.location.hash === '' || window.location.hash === '#/') {
                 renderApp();
             }
