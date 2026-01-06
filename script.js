@@ -23,12 +23,22 @@ let state = {
 // --- Utils ---
 const formatDate = (isoString) => {
     const d = new Date(isoString);
-    return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    return `${year}.${month}.${day} ${hours}:${minutes}`;
 };
 
 const formatFullDate = (isoString) => {
     const d = new Date(isoString);
-    return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const month = d.toLocaleDateString('en-US', { month: 'long' });
+    const day = d.getDate();
+    const year = d.getFullYear();
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    return `${month} ${day}, ${year} ${hours}:${minutes}`;
 };
 
 // --- Core Logic ---
@@ -305,15 +315,13 @@ const attachHomeListeners = () => {
     const input = document.getElementById('search-input');
     if (input) {
         input.focus();
-        // Restore cursor position if needed (though with the new non-destructive update it's less critical, safe to keep)
+        // Restore cursor position if needed
         input.setSelectionRange(input.value.length, input.value.length);
         
         input.addEventListener('input', (e) => {
             state.searchQuery = e.target.value;
             
-            // CRITICAL FIX: Do NOT call renderApp() here.
-            // renderApp() destroys the sidebar and the input element, breaking IME (Chinese) and doubling characters.
-            // Instead, we only update the specific results containers.
+            // Only update the specific results containers.
             const headerEl = document.getElementById('timeline-header');
             const postsEl = document.getElementById('posts-container');
             
