@@ -21,24 +21,46 @@ let state = {
 };
 
 // --- Utils ---
-const formatDate = (isoString) => {
+
+// Helper to parse ISO string literally (YYYY-MM-DDTHH:mm) ignoring timezone
+const parseDateLiteral = (isoString) => {
+    // Matches YYYY-MM-DDTHH:mm with optional seconds/timezone (ignored)
+    const match = isoString && isoString.match(/^(\d{4})-(\d{1,2})-(\d{1,2})T(\d{1,2}):(\d{1,2})/);
+    
+    if (match) {
+        return {
+            year: match[1],
+            month: match[2].padStart(2, '0'),
+            day: match[3].padStart(2, '0'),
+            hours: match[4].padStart(2, '0'),
+            minutes: match[5].padStart(2, '0')
+        };
+    }
+    
+    // Fallback logic if format doesn't match standard ISO start
     const d = new Date(isoString);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    const hours = String(d.getHours()).padStart(2, '0');
-    const minutes = String(d.getMinutes()).padStart(2, '0');
-    return `${year}.${month}.${day} ${hours}:${minutes}`;
+    return {
+        year: d.getFullYear(),
+        month: String(d.getMonth() + 1).padStart(2, '0'),
+        day: String(d.getDate()).padStart(2, '0'),
+        hours: String(d.getHours()).padStart(2, '0'),
+        minutes: String(d.getMinutes()).padStart(2, '0')
+    };
+};
+
+const formatDate = (isoString) => {
+    const t = parseDateLiteral(isoString);
+    return `${t.year}.${t.month}.${t.day} ${t.hours}:${t.minutes}`;
 };
 
 const formatFullDate = (isoString) => {
-    const d = new Date(isoString);
-    const month = d.toLocaleDateString('en-US', { month: 'long' });
-    const day = d.getDate();
-    const year = d.getFullYear();
-    const hours = String(d.getHours()).padStart(2, '0');
-    const minutes = String(d.getMinutes()).padStart(2, '0');
-    return `${month} ${day}, ${year} ${hours}:${minutes}`;
+    const t = parseDateLiteral(isoString);
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthIndex = parseInt(t.month, 10) - 1;
+    const monthName = months[monthIndex] || 'Unknown';
+    // Remove leading zero from day for natural English format (e.g. "January 5" not "January 05")
+    const day = parseInt(t.day, 10);
+    return `${monthName} ${day}, ${t.year} ${t.hours}:${t.minutes}`;
 };
 
 // --- Core Logic ---
