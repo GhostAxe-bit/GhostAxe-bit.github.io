@@ -49,5 +49,19 @@ window.POSTS = [
     
   },
 
+  {
+    id: '3',
+    type: 'short_post',
+    content: '更新了icon',
+    tags: ['test'],
+    publish_date: '2026-01-08T22:30:00Z',
+    media: [
+      {
+        type: 'image',
+        url: '/assets/images/potin1.png',
+        caption: '断尾蜥蜴'
+      }
+    ]
+  },
 
 ];
