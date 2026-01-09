@@ -64,4 +64,35 @@ window.POSTS = [
     ]
   },
 
+    {
+    id: '4',
+    type: 'short_post',
+    content: `焊好了，能用就行。
+
+1.拆卸上面板
+2.用一字螺丝刀撬开底板左右两侧
+3.螺丝刀放入底部两个缺口，向上抬，即可拆卸掉底板
+4.拆开底板内的电源插头
+5.拆卸下面板
+6.下面板背面，从梯形坡撬，向后上方用力
+7.梯形坡撬开后，面板中间还有卡扣，向外掰开
+8.下面板钢条的位置和其缺口对应
+
+线序
+
+     锁扣                                 
+6 7 8 9 12 10
+11 2 1 5 4 3
+
+     锁扣
+12 11 10 9 8 7 6 5 4 3 2 1 `,
+    tags: [''],
+    publish_date: '2026-01-09T20:15:00Z',
+    media: [
+      { type: 'image', url: '/assets/images/IMG_20260109_150913.jpg', caption: '' },
+      { type: 'image', url: '/assets/images/IMG_20260109_153631.jpg', caption: '' },
+      { type: 'image', url: '/assets/images/IMG_20260109_155909.jpg', caption: '' },
+      { type: 'image', url: '/assets/images/IMG_20260109_200953.jpg', caption: '' }
+    ]
+  },
 ];
