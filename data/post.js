@@ -86,13 +86,46 @@ window.POSTS = [
 
      锁扣
 12 11 10 9 8 7 6 5 4 3 2 1 `,
-    tags: [''],
+    tags: [],
     publish_date: '2026-01-09T20:15:00Z',
     media: [
       { type: 'image', url: '/assets/images/IMG_20260109_150913.jpg', caption: '' },
       { type: 'image', url: '/assets/images/IMG_20260109_153631.jpg', caption: '' },
       { type: 'image', url: '/assets/images/IMG_20260109_155909.jpg', caption: '' },
       { type: 'image', url: '/assets/images/IMG_20260109_200953.jpg', caption: '' }
+    ]
+  },
+
+  {
+    id: '5',
+    type: 'short_post',
+    content: `给一台老平板换个电池
+
+打开平板
+1.热风枪吹1分钟
+2.刀片向缝隙左右摆动，蹭进去
+3.向下轻掰，水平线左右摆动
+4.重复以上操作直至可以塞进撬片卡位
+5.从撬片两头，用塑料卡再屏幕周围划一圈，配合热风枪。注意屏幕血线
+6.用吸盘吸起屏幕，打开，处理残胶
+
+上机测试
+7.拧下螺丝，排线头用指甲，在侧面挑开，屏幕取下备用
+8.热风枪吹平板背面
+9.用撬片和手拆卸电池。注意不要让电池破损
+10.新电池接线测试，测试完毕关机
+
+安装复原
+11.电池上胶，接线，拧螺丝
+12.边缘上胶，上下正常涂，左右尽可能少，防止溢出血线
+13.安装屏幕，橡皮筋固定，冷却后清理残胶，充电`,
+    tags: [],
+    publish_date: '2026-01-12T00:16:00Z',
+    media: [
+      { type: 'image', url: '/assets/images/IMG_20260111_190439.jpg', caption: '' },
+      { type: 'image', url: '/assets/images/IMG_20260111_192548.jpg', caption: '' },
+      { type: 'image', url: '/assets/images/IMG_20260111_195948.jpg', caption: '' },
+      { type: 'image', url: '/assets/images/IMG_20260111_195546.jpg', caption: '' }
     ]
   },
 ];
