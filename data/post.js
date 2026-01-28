@@ -128,4 +128,37 @@ window.POSTS = [
       { type: 'image', url: '/assets/images/IMG_20260111_195546.jpg', caption: '' }
     ]
   },
+
+   {
+    id: '6',
+    type: 'short_post',
+    content: `拆分
+Drums
+Music
+Vocal
+BGV
+
+BPM
+
+干声平均-12db
+和声LR两个轨道，分开录
+
+izotope处理
+De-plpsive
+Mouth De-click
+
+BGM，主人声，和声，FX四条线
+FX输出总线
+
+切段和声量处理`,
+    tags: ['work'],
+    publish_date: '2025-12-25T23:56:00Z',
+    media: [
+      {
+        type: 'image',
+        url: '/assets/images/first.png',
+        caption: ''
+      }
+    ]
+  },
 ];
