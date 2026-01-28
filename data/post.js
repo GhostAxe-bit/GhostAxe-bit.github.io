@@ -152,13 +152,7 @@ FX输出总线
 
 切段和声量处理`,
     tags: ['work'],
-    publish_date: '2025-12-25T23:56:00Z',
-    media: [
-      {
-        type: 'image',
-        url: '/assets/images/first.png',
-        caption: ''
-      }
-    ]
+    publish_date: '2026-1-28T23:03:00Z',
+    
   },
 ];
